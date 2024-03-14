@@ -6,13 +6,17 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
         try {
             IConvertisseurRemote conv = (IConvertisseurRemote) Naming.lookup("rmi://localhost:6666/CV");
-            System.out.println(conv.conversion (20));
-            System.out.println(conv.getServerDate());
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the amount to convert: ");
+            double amount = scanner.nextDouble();
+            System.out.println(conv.conversion (amount));
+            System.out.println("Date: " + conv.getServerDate());
         } catch (MalformedURLException | NotBoundException | RemoteException e) {
             e.printStackTrace();
         }
